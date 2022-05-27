@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recognize_text/widget/controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
@@ -39,6 +40,20 @@ class _TextRecognitionWidgeState extends State<TextRecognitionWidget> {
 
   Future pickImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.gallery);
-    setImage(File(file.path));
+    setImage(File(file!.path));
   }
+
+  Future scanText() async {
+    showDialog(builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ), context: context);
+  }
+
+  void setImage(File newImage) {
+    setState(() {
+      image = newImage;
+    });
+  }
+
+
 }
